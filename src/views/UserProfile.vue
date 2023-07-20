@@ -1,6 +1,6 @@
 <template>
     <ContentBase>
-        炮友列表
+        炮友动态
     </ContentBase>
 </template>
 
@@ -8,13 +8,10 @@
 import ContentBase from "@/components/ContentBase.vue";
 
 export default {
-    name: 'UserList',
-    components: {
-        ContentBase,
-    }
+    name: "UserProfile",
+    components: {ContentBase}
 }
 </script>
-
 
 <style scoped>
 

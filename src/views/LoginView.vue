@@ -1,6 +1,6 @@
 <template>
     <ContentBase>
-        炮友列表
+        登录
     </ContentBase>
 </template>
 
@@ -8,13 +8,10 @@
 import ContentBase from "@/components/ContentBase.vue";
 
 export default {
-    name: 'UserList',
-    components: {
-        ContentBase,
-    }
+    name: "LoginView",
+    components: {ContentBase}
 }
 </script>
-
 
 <style scoped>
 

@@ -1,6 +1,6 @@
 <template>
     <ContentBase>
-        炮友列表
+        404
     </ContentBase>
 </template>
 
@@ -8,13 +8,10 @@
 import ContentBase from "@/components/ContentBase.vue";
 
 export default {
-    name: 'UserList',
-    components: {
-        ContentBase,
-    }
+    name: "NotFound",
+    components: {ContentBase}
 }
 </script>
-
 
 <style scoped>
 
