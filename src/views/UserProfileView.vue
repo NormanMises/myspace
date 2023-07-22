@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-3">
                 <UserInfo :user="user" @follow="follow" @unfollow="unfollow"/>
+                <UserWrite/>
             </div>
             <div class="col-9">
                 <UserPosts :posts="posts"/>
@@ -15,6 +16,7 @@
 import ContentBase from "@/components/ContentBase.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import UserPosts from "@/components/UserPosts.vue";
+import UserWrite from "@/components/UserWrite.vue";
 import {reactive} from "vue";
 
 export default {
@@ -22,7 +24,8 @@ export default {
     components: {
         ContentBase,
         UserInfo,
-        UserPosts
+        UserPosts,
+        UserWrite
     },
     setup() {
         const user = reactive({
