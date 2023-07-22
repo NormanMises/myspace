@@ -6,7 +6,7 @@
                 <UserWrite @submit="submit"/>
             </div>
             <div class="col-9">
-                <UserPosts :posts="posts" />
+                <UserPosts :posts="posts"/>
             </div>
         </div>
     </ContentBase>

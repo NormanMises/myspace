@@ -13,7 +13,7 @@ import {ref} from "vue";
 
 export default {
     name: "UserWrite",
-    setup(props,context) {
+    setup(props, context) {
         let content = ref('');
 
         const submit = () => {
