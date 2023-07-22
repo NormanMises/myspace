@@ -2,7 +2,7 @@
     <ContentBase>
         <div class="row">
             <div class="col-3">
-                <UserInfo/>
+                <UserInfo :user="user"/>
             </div>
             <div class="col-9">
                 <UserPosts/>

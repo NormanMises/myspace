@@ -7,8 +7,8 @@
                          alt="">
                 </div>
                 <div class="col-9">
-                    <div class="username">yhf</div>
-                    <div class="fans">炮友数：123</div>
+                    <div class="username">{{ fullName }}</div>
+                    <div class="fans">炮友数：{{ user.followerCount }}</div>
                     <button type="button" class="btn btn-secondary btn-sm">+关注</button>
                 </div>
             </div>
@@ -17,8 +17,25 @@
 </template>
 
 <script>
+
+import {computed} from "vue";
+
 export default {
     name: "UserInfo",
+    props: {
+        user: {
+            type: Object,
+            required: true,
+        },
+    },
+    setup(props) {
+        let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
+
+        return {
+            fullName,
+        }
+    }
+
 }
 </script>
 
