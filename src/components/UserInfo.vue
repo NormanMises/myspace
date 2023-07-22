@@ -29,15 +29,15 @@ export default {
             required: true,
         },
     },
-    setup(props) {
+    setup(props, context) {
         let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
 
         const follow = () => {
-            console.log("follow");
+            context.emit('follow');
         };
 
         const unfollow = () => {
-            console.log("unfollow");
+            context.emit('unfollow');
         }
 
         return {

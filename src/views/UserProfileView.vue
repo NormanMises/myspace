@@ -48,6 +48,8 @@ export default {
 
         return {
             user,
+            follow,
+            unfollow,
         }
     }
 }
