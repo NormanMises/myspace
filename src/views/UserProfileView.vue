@@ -2,7 +2,7 @@
     <ContentBase>
         <div class="row">
             <div class="col-3">
-                <UserInfo :user="user"/>
+                <UserInfo :user="user" @follow="follow" @unfollow="unfollow"/>
             </div>
             <div class="col-9">
                 <UserPosts/>
@@ -32,7 +32,19 @@ export default {
             firstName: "hf",
             followerCount: 0,
             is_followed: false,
-        })
+        });
+
+        const follow = () => {
+            if (user.is_followed) return;
+            user.is_followed = true;
+            user.followerCount++;
+        };
+
+        const unfollow = () => {
+            if (!user.is_followed) return;
+            user.is_followed = false;
+            user.followerCount--;
+        };
 
         return {
             user,
