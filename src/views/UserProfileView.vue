@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-3">
                 <UserInfo :user="user" @follow="follow" @unfollow="unfollow"/>
-                <UserWrite/>
+                <UserWrite @submit="submit"/>
             </div>
             <div class="col-9">
-                <UserPosts :posts="posts"/>
+                <UserPosts :posts="posts" />
             </div>
         </div>
     </ContentBase>
@@ -43,16 +43,16 @@ export default {
                     {
                         id: 1,
                         userid: 1,
-                        context: "111111"
+                        content: "111111"
                     },
                     {
                         id: 2,
                         userid: 2,
-                        context: "22222"
+                        content: "22222"
                     }, {
                         id: 3,
                         userid: 3,
-                        context: "333333"
+                        content: "333333"
                     },
                 ]
             }
@@ -70,11 +70,21 @@ export default {
             user.followerCount--;
         };
 
+        const submit = (content) => {
+            posts.count++;
+            posts.posts.unshift({
+                id: posts.count,
+                userid: 1,
+                content: content,
+            })
+        }
+
         return {
             user,
             posts,
             follow,
             unfollow,
+            submit,
         }
     }
 }

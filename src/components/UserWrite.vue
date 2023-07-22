@@ -13,10 +13,12 @@ import {ref} from "vue";
 
 export default {
     name: "UserWrite",
-    setup() {
+    setup(props,context) {
         let content = ref('');
 
         const submit = () => {
+            if (!content.value) return;
+            context.emit('submit', content.value);
             content.value = '';
         }
         return {
