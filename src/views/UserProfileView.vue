@@ -5,7 +5,7 @@
                 <UserInfo :user="user" @follow="follow" @unfollow="unfollow"/>
             </div>
             <div class="col-9">
-                <UserPosts/>
+                <UserPosts :posts="posts"/>
             </div>
         </div>
     </ContentBase>
@@ -34,6 +34,27 @@ export default {
             is_followed: false,
         });
 
+        const posts = reactive({
+                count: 3,
+                posts: [
+                    {
+                        id: 1,
+                        userid: 1,
+                        context: "111111"
+                    },
+                    {
+                        id: 2,
+                        userid: 2,
+                        context: "22222"
+                    }, {
+                        id: 3,
+                        userid: 3,
+                        context: "333333"
+                    },
+                ]
+            }
+        )
+
         const follow = () => {
             if (user.is_followed) return;
             user.is_followed = true;
@@ -48,6 +69,7 @@ export default {
 
         return {
             user,
+            posts,
             follow,
             unfollow,
         }
