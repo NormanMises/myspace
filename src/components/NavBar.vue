@@ -14,7 +14,7 @@
           <router-link class="nav-link" :to="{name:'UserList'}">炮友列表</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" :to="{name:'UserProfile'}">炮友动态</router-link>
+          <router-link class="nav-link" :to="{name:'UserProfile', params:{userId: 2}}">炮友动态</router-link>
         </li>
       </ul>
      <ul class="navbar-nav">
