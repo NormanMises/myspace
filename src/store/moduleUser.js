@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import jwtDecode from "jwt-decode";
 
 const ModuleUser = {
     state: {
@@ -21,6 +22,8 @@ const ModuleUser = {
                     },
                     success(resp) {
                         const {access, refresh} = resp;
+                        const access_obj = jwtDecode(access);
+                        console.log(access_obj, refresh);
                     },
                 }
             );
