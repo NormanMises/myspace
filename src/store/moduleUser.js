@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 const ModuleUser = {
     state: {
         id: "",
@@ -7,7 +9,23 @@ const ModuleUser = {
     },
     getters: {},
     mutations: {},
-    actions: {},
+    actions: {
+        login(context, data) {
+            $.ajax(
+                {
+                    url: "https://app165.acapp.acwing.com.cn/api/token/",
+                    type: "POST",
+                    data: {
+                        username: data.username,
+                        password: data.password,
+                    },
+                    success(resp) {
+                        const {access, refresh} = resp;
+                    },
+                }
+            );
+        }
+    },
     modules: {}
 }
 export default ModuleUser;
