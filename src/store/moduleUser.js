@@ -22,6 +22,9 @@ const ModuleUser = {
             state.refresh = user.refresh;
             state.is_login = user.is_login;
         },
+        updateAccess(state, access) {
+            state.access = access;
+        }
     },
     actions: {
         login(context, data) {
@@ -37,6 +40,19 @@ const ModuleUser = {
                         const {access, refresh} = resp;
                         const access_obj = jwtDecode(access);
                         // console.log(access_obj, refresh);
+
+                        setInterval(() => {
+                            $.ajax({
+                                url: "https://app165.acapp.acwing.com.cn/api/token/refresh/",
+                                type: "POST",
+                                data: {
+                                    refresh,
+                                },
+                                success(resp) {
+                                    context.commit('updateAccess', resp.access);
+                                }
+                            })
+                        }, 4.5 * 60 * 1000)
                         $.ajax({
                             url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
                             type: "GET",
@@ -57,9 +73,9 @@ const ModuleUser = {
                             },
                         })
                     },
-                    error(){
+                    error() {
                         data.error();
-                    }
+                    },
                 }
             );
         }
