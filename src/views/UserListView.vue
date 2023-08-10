@@ -1,6 +1,6 @@
 <template>
     <ContentBase>
-        <div class="card" v-for="user in users" :key="user.id">
+        <div class="card" v-for="user in users" :key="user.id" @click="open_user_profile(user.id)">
             <div class="card-body">
                 <div class="row">
                     <div class="col-1">
@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-11">
                         <div class="username">{{ user.username }}</div>
-                        <div class="folllower-count">{{ user.followerCount }}</div>
+                        <div class="follower-count">{{ user.followerCount }}</div>
                     </div>
                 </div>
             </div>
@@ -21,6 +21,8 @@
 import ContentBase from "@/components/ContentBase.vue";
 import {ref} from "vue";
 import $ from 'jquery';
+import {useStore} from "vuex";
+import router from "@/router";
 
 export default {
     name: 'UserListVIew',
@@ -28,6 +30,7 @@ export default {
         ContentBase,
     },
     setup() {
+        const store = useStore();
         let users = ref([]);
         $.ajax(
             {
@@ -37,9 +40,24 @@ export default {
                     users.value = resp;
                 }
             }
-        )
+        );
+        const open_user_profile = userId => {
+            if (store.state.user.is_login) {
+                router.push({
+                    name: "UserProfile",
+                    params: {
+                        userId,
+                    },
+                })
+            } else {
+                router.push({
+                    name: "Login",
+                })
+            }
+        };
         return {
-            users
+            users,
+            open_user_profile,
         };
     }
 }
@@ -57,7 +75,7 @@ img {
     transition: 500ms;
 }
 
-.card:hover{
+.card:hover {
     box-shadow: 2px 2px 10px lightgray;
 }
 
@@ -66,7 +84,7 @@ img {
     height: 50%;
 }
 
-.folllower-count {
+.follower-count {
     font-size: 12px;
     color: gray;
     height: 50%;
