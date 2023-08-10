@@ -19,6 +19,8 @@ import UserPosts from "@/components/UserPosts.vue";
 import UserWrite from "@/components/UserWrite.vue";
 import {reactive} from "vue";
 import {useRoute} from "vue-router";
+import $ from 'jquery';
+import {useStore} from "vuex";
 
 export default {
     name: "UserProfileView",
@@ -29,40 +31,29 @@ export default {
         UserWrite
     },
     setup() {
+        const store = useStore();
         const route = useRoute();
-
         const userId = route.params.userId;
-        console.log(userId);
+        const user = reactive({});
+        const posts = reactive({});
 
-        const user = reactive({
-            id: 1,
-            username: "yhf",
-            lastName: "y",
-            firstName: "hf",
-            followerCount: 0,
-            is_followed: false,
-        });
-
-        const posts = reactive({
-                count: 3,
-                posts: [
-                    {
-                        id: 1,
-                        userid: 1,
-                        content: "111111"
-                    },
-                    {
-                        id: 2,
-                        userid: 2,
-                        content: "22222"
-                    }, {
-                        id: 3,
-                        userid: 3,
-                        content: "333333"
-                    },
-                ]
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
+            type: "GET",
+            data: {
+                user_id: userId,
+            },
+            headers: {
+                'Authorization': "Bearer " + store.state.user.access,
+            },
+            success(resp) {
+                user.id = resp.id;
+                user.username = resp.username;
+                user.photo = resp.photo;
+                user.followerCount = resp.followerCount;
+                user.is_followed = resp.is_followed;
             }
-        )
+        })
 
         const follow = () => {
             if (user.is_followed) return;

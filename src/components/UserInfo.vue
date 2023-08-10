@@ -2,12 +2,12 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-3">
-                    <img class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/59554_lg_941f7b551c.jpg"
+                <div class="col-3 img-field">
+                    <img class="img-fluid" :src="user.photo"
                          alt="">
                 </div>
                 <div class="col-9">
-                    <div class="username">{{ fullName }}</div>
+                    <div class="username">{{ user.username }}</div>
                     <div class="fans">炮友数：{{ user.followerCount }}</div>
                     <button v-if="!user.is_followed" @click="follow" type="button" class="btn btn-secondary btn-sm">
                         +关注
@@ -23,7 +23,7 @@
 
 <script>
 
-import {computed} from "vue";
+// import {computed} from "vue";
 
 export default {
     name: "UserInfo",
@@ -34,7 +34,7 @@ export default {
         },
     },
     setup(props, context) {
-        let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
+        // let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
 
         const follow = () => {
             context.emit('follow');
@@ -45,7 +45,7 @@ export default {
         }
 
         return {
-            fullName,
+            // fullName,
             follow,
             unfollow,
         }
@@ -57,6 +57,13 @@ export default {
 <style scoped>
 img {
     border-radius: 50%;
+}
+
+.img-field {
+    /* 居中 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .username {

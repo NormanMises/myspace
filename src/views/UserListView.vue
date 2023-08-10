@@ -3,7 +3,7 @@
         <div class="card" v-for="user in users" :key="user.id" @click="open_user_profile(user.id)">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-1 img-field">
                         <!--                        标签中用变量用 v-bind 简写为 : -->
                         <img class="img-fluid" :src="user.photo" alt="">
                     </div>
@@ -67,6 +67,13 @@ export default {
 <style scoped>
 img {
     border-radius: 50%;
+}
+
+.img-field {
+    /* 居中 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card {
