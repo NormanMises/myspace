@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-3">
                 <UserInfo :user="user" @follow="follow" @unfollow="unfollow"/>
-                <UserWrite @submit="submit"/>
+                <UserWrite v-if="is_me" @submit="submit"/>
             </div>
             <div class="col-9">
                 <UserPosts :posts="posts"/>
@@ -17,7 +17,7 @@ import ContentBase from "@/components/ContentBase.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import UserPosts from "@/components/UserPosts.vue";
 import UserWrite from "@/components/UserWrite.vue";
-import {reactive} from "vue";
+import {computed, reactive} from "vue";
 import {useRoute} from "vue-router";
 import $ from 'jquery';
 import {useStore} from "vuex";
@@ -33,7 +33,7 @@ export default {
     setup() {
         const store = useStore();
         const route = useRoute();
-        const userId = route.params.userId;
+        const userId = parseInt(route.params.userId);
         const user = reactive({});
         const posts = reactive({});
 
@@ -88,7 +88,9 @@ export default {
                 userid: 1,
                 content: content,
             })
-        }
+        };
+
+        const is_me = computed(() => userId === store.state.user.id);
 
         return {
             user,
@@ -96,6 +98,7 @@ export default {
             follow,
             unfollow,
             submit,
+            is_me,
         }
     }
 }
