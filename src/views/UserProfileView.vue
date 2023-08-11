@@ -6,7 +6,7 @@
                 <UserWrite v-if="is_me" @submit="submit"/>
             </div>
             <div class="col-9">
-                <UserPosts :posts="posts"/>
+                <UserPosts :user="user" :posts="posts" @delete_a_post="delete_a_post"/>
             </div>
         </div>
     </ContentBase>
@@ -82,7 +82,7 @@ export default {
             user.followerCount--;
         };
 
-        const submit = (content) => {
+        const submit = content => {
             posts.count++;
             posts.posts.unshift({
                 id: posts.count,
@@ -90,6 +90,10 @@ export default {
                 content: content,
             })
         };
+
+        const delete_a_post = post_id => {
+            posts.posts = posts.posts.filter(post => post.id !== post_id);
+        }
 
         const is_me = computed(() => userId === store.state.user.id);
 
@@ -100,6 +104,7 @@ export default {
             unfollow,
             submit,
             is_me,
+            delete_a_post,
         }
     }
 }
