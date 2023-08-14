@@ -6,7 +6,9 @@
                     <div class="card-body">
                         <!--                        内容中用变量用 {{ }} -->
                         {{ post.content }}
-                        <button @click="delete_a_post(post.id)" v-if="is_me" type="button" class="btn btn-danger btn-sm">删除</button>
+                        <button @click="delete_a_post(post.id)" v-if="is_me" type="button"
+                                class="btn btn-danger btn-sm">删除
+                        </button>
                     </div>
                 </div>
 
@@ -18,6 +20,7 @@
 <script>
 import {computed} from "vue";
 import {useStore} from "vuex";
+import $ from 'jquery';
 
 export default {
     name: "UserPosts",
@@ -36,11 +39,25 @@ export default {
         const is_me = computed(() => props.user.id === store.state.user.id);
 
         const delete_a_post = post_id => {
-            context.emit('delete_a_post', post_id);
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/post/",
+                type: "DELETE",
+                data: {
+                    post_id,
+                },
+                headers: {
+                    'Authorization': "Bearer " + store.state.user.access,
+                },
+                success(resp) {
+                    if (resp.result === "success") {
+                        context.emit('delete_a_post', post_id);
+                    }
+                },
+            })
         }
         return {
             is_me,
-            delete_a_post
+            delete_a_post,
         }
     }
 }
