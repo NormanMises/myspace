@@ -24,6 +24,8 @@
 <script>
 
 // import {computed} from "vue";
+import $ from 'jquery';
+import {useStore} from "vuex";
 
 export default {
     name: "UserInfo",
@@ -35,13 +37,41 @@ export default {
     },
     setup(props, context) {
         // let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
-
+        const store = useStore();
         const follow = () => {
-            context.emit('follow');
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "POST",
+                data: {
+                    target_id: props.user.id,
+                },
+                headers: {
+                    'Authorization': "Bearer " + store.state.user.access,
+                },
+                success(resp) {
+                    if (resp.result === "success") {
+                        context.emit('follow');
+                    }
+                }
+            });
         };
 
         const unfollow = () => {
-            context.emit('unfollow');
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "POST",
+                data: {
+                    target_id: props.user.id,
+                },
+                headers: {
+                    'Authorization': "Bearer " + store.state.user.access,
+                },
+                success(resp) {
+                    if (resp.result === "success") {
+                        context.emit('unfollow');
+                    }
+                }
+            });
         }
 
         return {
