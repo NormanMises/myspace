@@ -9,10 +9,10 @@
                 <div class="col-9">
                     <div class="username">{{ user.username }}</div>
                     <div class="fans">炮友数：{{ user.followerCount }}</div>
-                    <button v-if="!user.is_followed" @click="follow" type="button" class="btn btn-secondary btn-sm">
+                    <button v-if="!user.is_followed&&!is_me" @click="follow" type="button" class="btn btn-secondary btn-sm">
                         +关注
                     </button>
-                    <button v-if="user.is_followed" @click="unfollow" type="button" class="btn btn-secondary btn-sm">
+                    <button v-if="user.is_followed&&!is_me" @click="unfollow" type="button" class="btn btn-secondary btn-sm">
                         取消关注
                     </button>
                 </div>
@@ -26,6 +26,7 @@
 // import {computed} from "vue";
 import $ from 'jquery';
 import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
     name: "UserInfo",
@@ -38,6 +39,8 @@ export default {
     setup(props, context) {
         // let fullName = computed(() => props.user.lastName + ' ' + props.user.firstName);
         const store = useStore();
+        const is_me = computed(() => props.user.id === store.state.user.id);
+
         const follow = () => {
             $.ajax({
                 url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
@@ -78,6 +81,7 @@ export default {
             // fullName,
             follow,
             unfollow,
+            is_me,
         }
     },
 
